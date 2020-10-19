@@ -1,38 +1,102 @@
-<mvc:View controllerName="com.ciber.sf.sfpayroll.controller.View1" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
+<mvc:View controllerName="com.ciber.sf.sfpayroll.controller.View1" xmlns:t="sap.ui.table" xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+	xmlns:f="sap.ui.layout.form" xmlns:u="sap.ui.unified" class="sapUiSizeCompact" xmlns:c="sap.ui.core" xmlns:l="sap.ui.layout" xmlns="sap.m"
+	width="100%">
 	<Shell id="shell">
 		<App id="app">
 			<pages>
 				<Page id="page" title="{i18n>title}">
 					<content>
-					<Text
-						renderWhitespace="false"
-						text="empty string"
-						textAlign="Begin"
-						textDirection="Inherit"
-						width=""
-						wrapping="true"
-						wrappingType="Normal"
-						busy="false"
-						busyIndicatorDelay="1000"
-						busyIndicatorSize="Medium"
-						fieldGroupIds="[]"
-						visible="true"
-					>
-						<customData>
-							<!--sap.ui.core.CustomData-->
-						</customData>
-						<dependents>
-							<!--sap.ui.core.Element-->
-						</dependents>
-						<dragDropConfig>
-							<!--sap.ui.core.dnd.DragDropBase-->
-						</dragDropConfig>
-						<layoutData>
-							<!--sap.ui.core.LayoutData-->
-						</layoutData>
-						<tooltip>
-							<!--sap.ui.core.TooltipBase-->
-						</tooltip></Text></content>
+						<l:Grid defaultSpan="L6 M6 S6" class="sapUiSmallMarginTop sapUiSmallMargin">
+							<l:content>
+								<Table id="idProductsTable" inset="false" items="{path:'/ProductCollection'}">
+									<columns>
+										<Column demandPopin="true">
+											<Text text="Name"/>
+										</Column>
+										<Column demandPopin="true">
+											<Text text="Quantity"/>
+										</Column>
+										<Column demandPopin="true">
+											<Text text="UOM"/>
+										</Column>
+										<Column demandPopin="true">
+											<Text text="Price"/>
+										</Column>
+										<Column demandPopin="true">
+											<Text text="Subtotal"/>
+										</Column>
+									</columns>
+									<items>
+										<ColumnListItem vAlign="Middle" type="Navigation" press="handleMasterPress">
+											<cells>
+												<Text text="{ProductId}"/>
+												<Text text="{Name}"/>
+												<Text text="{Category}"/>
+												<Text text="{DateOfSale}"/>
+												<Text text="{Price}"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+								</Table>
+								<f:SimpleForm id="SimpleFormChange472" maxContainerCols="2" editable="true" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3"
+									emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2" adjustLabelSpan="false" class="editableForm">
+									<f:content>
+										<Label text="Product Id"/>
+										<Input id='tfProductId'>
+											<layoutData>
+												<l:GridData span="L6 M6 S6"/>
+											</layoutData>
+										</Input>
+										<Label text="Name"/>
+										<Input id='tfName'>
+											<layoutData>
+												<l:GridData span="L6 M6 S6"/>
+											</layoutData>
+										</Input>
+										<Label text="Date Of Sale"/>
+										<Input id='tfDateOfSale'>
+											<layoutData>
+												<l:GridData span="L6 M6 S6"/>
+											</layoutData>
+										</Input>
+										<Label text="Price"/>
+										<Input id='tfPrice'>
+											<layoutData>
+												<l:GridData span="L6 M6 S6"/>
+											</layoutData>
+										</Input>
+										<Label text="Category"/>
+										<Select width="100%">
+											<items>
+												<c:Item text="A"/>
+												<c:Item text="B"/>
+												<c:Item text="C"/>
+											</items>
+											<layoutData>
+												<l:GridData span="L6 M6 S6"/>
+											</layoutData>
+										</Select>
+										<Label text=""/>
+										<Button text="Default" press="onPress">
+											<layoutData>
+												<l:GridData span="L3 M3 S3"/>
+											</layoutData>
+										</Button>
+										<Button text="Default" press="onPress">
+												<layoutData>
+												<l:GridData span="L3 M3 S3"/>
+											</layoutData>
+										</Button>
+										<Button text="Default" press="onPress">
+												<layoutData>
+												<l:GridData span="L3 M3 S3"/>
+											</layoutData>
+										</Button>
+									</f:content>
+								</f:SimpleForm>
+							</l:content>
+						</l:Grid>
+					</content>
 				</Page>
 			</pages>
 		</App>
