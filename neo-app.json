@@ -36,6 +36,14 @@
         "entryPath": "/test-resources"
       },
       "description": "SAPUI5 Test Resources"
+    },
+    {
+      "path": "/SF_CMC_DEV",
+      "target": {
+        "type": "destination",
+        "name": "SF_CMC_DEV"
+      },
+      "description": "SF CMC DEV OData"
     }
   ],
   "sendWelcomeFileRedirect": true

@@ -11,9 +11,10 @@ sap.ui.define([
 	var selectedItem;
 	return Controller.extend("com.ciber.sf.sfpayroll.controller.View1", {
 		onInit: function () {
-this.getView().byId("tfName").setValue("abc");
-			var oJSONModel = this.initSampleDataModel();
-			this.getView().setModel(oJSONModel);
+
+			// var oJSONModel = this.initSampleDataModel();
+			// this.getView().setModel(oJSONModel);
+			this._callOdataSF();
 			// var fnPress = this.handleActionPress.bind(this);
 		},
 
@@ -229,14 +230,47 @@ this.getView().byId("tfName").setValue("abc");
 			return oModel;
 		},
 
+		_callOdataSF: function (query) {
+			this.oModel = this.getView().getModel("SFResources");
+			var that = this;
+			var mParameter = {
+				"urlParameters": {
+					"$format": "json",
+					"$select": "userId,personIdExternal,endDate,personNav/personalInfoNav/lastName," +
+						"personNav/personalInfoNav/firstName,jobInfoNav/division,jobInfoNav/department,jobInfoNav/company," +
+						"jobInfoNav/startDate,jobInfoNav/endDate"
+				},
+				"success": function (oData, Response) {
+					console.log("ok");
+					console.log(Response);
+
+					// return true;
+				},
+				"error": function () {
+					// console.log("hello");
+				}
+
+			};
+			this.oModel.read("/EmpEmployment", mParameter);
+			this.getView().setModel(this.oModel);
+		},
+
 		handleMasterPress: function (oEvent) {
 			var oColumnListItem = oEvent.getSource();
 			selectedItem = oEvent.getSource().getBindingContext().getObject();
-			console.log(selectedItem.Name);
-			this.getView().byId("tfName").setValue(selectedItem.Name);
-			this.getView().byId("tfPrice").setValue(selectedItem.Price);
-			this.getView().byId("tfDateOfSale").setValue(selectedItem.DateOfSale);
-			this.getView().byId("tfProductId").setValue(selectedItem.ProductId);
+		
+			var dateStr;
+			console.log(selectedItem.endDate);
+			if (selectedItem.endDate != null) {
+				var dateFormat = sap.ui.core.format.DateFormat.getDateInstance({
+					pattern: "dd/MM/yyyy"
+				});
+				dateStr = dateFormat.format(new Date(selectedItem.endDate));
+					console.log(dateStr);
+			}
+		
+			this.getView().byId("dateTimeField").setValue(dateStr);
+			// this.getView().byId("tfProductId").setValue(selectedItem.ProductId);
 		}
 
 	});

@@ -1,0 +1,633 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:table="sap.ui.table" xmlns:f="sap.ui.layout.form"
+	xmlns:c="sap.ui.core" xmlns:l="sap.ui.layout" controllerName="com.ciber.sf.sfpayroll.controller.IncreasingInsuranceView"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="Bảo hiểm">
+				<content>
+					<VBox class="sapUiSmallMargin">
+						<f:Form id="FormChangeColumn_oneGroup234" editable="true">
+							<f:title>
+								<c:Title text="Bộ lọc"/>
+							</f:title>
+							<f:layout>
+								<f:ColumnLayout columnsM="2" columnsL="3" columnsXL="4"/>
+							</f:layout>
+							<f:formContainers>
+								<f:FormContainer>
+									<f:formElements>
+										<f:FormElement label="Năm">
+											<f:fields>
+												<DatePicker value="{year}" displayFormat="yyyy" valueFormat="yy"/>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="Kỳ bảo hiểm">
+											<f:fields>
+												<Select id="country" selectedKey="{Month}">
+													<items>
+														<c:Item text="Tháng 01" key="01"/>
+														<c:Item text="Tháng 02" key="02"/>
+														<c:Item text="Tháng 03" key="03"/>
+														<c:Item text="Tháng 04" key="04"/>
+														<c:Item text="Tháng 05" key="05"/>
+														<c:Item text="Tháng 06" key="06"/>
+														<c:Item text="Tháng 07" key="07"/>
+														<c:Item text="Tháng 08" key="08"/>
+														<c:Item text="Tháng 09" key="09"/>
+														<c:Item text="Tháng 10" key="10"/>
+														<c:Item text="Tháng 11" key="11"/>
+														<c:Item text="Tháng 12" key="12"/>
+													</items>
+												</Select>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="Từ ngày">
+											<f:fields>
+												<Text text="15/01/2020"/>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="Đến ngày">
+											<f:fields>
+												<Text text="15/02/2020"/>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="">
+											<f:fields>
+												<Button type="Default" class="sapUiMediumMarginBeginEnd" icon="sap-icon://save" press="onSave" text="Filter" width="50%"/>
+											</f:fields>
+										</f:FormElement>
+									</f:formElements>
+								</f:FormContainer>
+							</f:formContainers>
+						</f:Form>
+					</VBox>
+					<!--Tabbed page-->
+					<IconTabBar id="iconTabBar" class="sapUiResponsiveContentPadding" select=".onFilterSelect">
+						<items>
+							<!--Danh sách cuối kì-->
+							<IconTabFilter text="Danh sách cuối kì" key="end-term">
+								<content>
+									<ScrollContainer height="35rem" vertical='true'>
+										<Table sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" id="tbEndTerm" inset="false" items="{path:'/EmpEmployment'}"
+											enableBusyIndicator="true" fixedLayout="false">
+											<headerToolbar>
+												<OverflowToolbar>
+													<Title text="Danh sách cuối kì" level="H1"/>
+													<ToolbarSpacer></ToolbarSpacer>
+													<Button icon="sap-icon://download" press="onDataExport"/>
+												</OverflowToolbar>
+											</headerToolbar>
+											<columns>
+												<Column hAlign="Center">
+													<Text text="Mã nhân viên"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="Họ tên" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="Chức danh" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="Phòng/Bộ phận" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="Khối" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="Line Kinh doanh" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="Loại hợp đồng" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="Email"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="Mã số BHXH" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="Loại biến động" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="Tháng biến động"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="BHTNLD - BNN" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="Lương đóng BXH" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="Lương đóng BHYT" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="Lương đóng BHTN" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="Lương đóng BHTNLD" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="BHXH - NLD" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="BHYT - NLD" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="BHTN - NLD" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="BHTNLD - NLD" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="Bảo hiểm khác import (NV)" maxLines="3"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="TỔNG BH -NLD" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="BHXH - CTY" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="BHYT - CTY" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="BHTN - CTY" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="BHTNLD - CTY" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="BHTNLD - CTY" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="TỔNG BH -CONG TY" maxLines="2"/>
+												</Column>
+											</columns>
+											<items>
+												<ColumnListItem vAlign="Middle" type="Active" press="handleMasterPress">
+													<cells>
+														<!--<Text text="{ProductId}"/>-->
+														<!--<Text text="{Name}"/>-->
+														<!--<Text text="{Category}"/>-->
+														<!--<Text text="{DateOfSale}"/>-->
+														<!--<Text text="{Price}"/>-->
+														<Text text="{personIdExternal}" wrapping="false"/>
+														<Text text="{userId}" wrapping="false"/>
+														<Text text="{ path: 'endDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'short' } }" wrapping="false"/>
+														<Text text="{isContingentWorker}" wrapping="false"/>
+														<Text text="{assignmentIdExternal}" wrapping="false"/>
+														<Text text="{personIdExternal}" wrapping="false"/>
+														<Text text="{userId}" wrapping="false"/>
+														<Text text="{ path: 'endDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'short' } }" wrapping="false"/>
+														<Text text="{isContingentWorker}" wrapping="false"/>
+														<Text text="{assignmentIdExternal}" wrapping="false"/>
+														<Text text="{personIdExternal}" wrapping="false"/>
+														<Text text="{userId}" wrapping="false"/>
+														<Text text="{ path: 'endDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'short' } }" wrapping="false"/>
+														<Text text="{isContingentWorker}" wrapping="false"/>
+														<Text text="{assignmentIdExternal}" wrapping="false"/>
+														<Text text="{personIdExternal}" wrapping="false"/>
+														<Text text="{userId}" wrapping="false"/>
+														<Text text="{ path: 'endDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'short' } }" wrapping="false"/>
+														<Text text="{isContingentWorker}" wrapping="false"/>
+														<Text text="{assignmentIdExternal}" wrapping="false"/>
+													</cells>
+												</ColumnListItem>
+											</items>
+										</Table>
+									</ScrollContainer>
+								</content>
+								<!-- sap.ui.core.Control -->
+							</IconTabFilter>
+							<!--Biến động tăng bảo hiểm-->
+							<IconTabFilter text="Biến động tăng bảo hiểm" key="increase">
+								<content>
+									<ScrollContainer height="35rem" vertical='true'>
+										<Table id="tbIncrease" inset="false" items="{path:'/EmpEmployment'}" enableBusyIndicator="true">
+											<headerToolbar>
+												<OverflowToolbar>
+													<Title text="Biến động tăng bảo hiểm" level="H2" textAlign="Center"/>
+													<ToolbarSpacer></ToolbarSpacer>
+													<Button icon="sap-icon://download" press="onDataExport"/>
+												</OverflowToolbar>
+											</headerToolbar>
+											<columns>
+												<Column hAlign="Center">
+													<Text text="Mã nhân viên" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="Họ và tên" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="Số sổ BHXH" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="Mã số BHXH" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="Ngày sinh" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="Dân tộc" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="Quốc tịch" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="Số CMND/Hộ chiếu/Thẻ căn cước" maxLines="3"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="Email" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="Mã hộ gia đình" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="" maxLines="2"/>
+												</Column>
+												<Column hAlign="Center">
+													<Text text="" maxLines="2"/>
+												</Column>
+											</columns>
+											<items>
+												<ColumnListItem vAlign="Middle" type="Active" press="handleMasterPress">
+													<cells>
+														<!--<Text text="{ProductId}"/>-->
+														<!--<Text text="{Name}"/>-->
+														<!--<Text text="{Category}"/>-->
+														<!--<Text text="{DateOfSale}"/>-->
+														<!--<Text text="{Price}"/>-->
+														<Text text="{personIdExternal}"/>
+														<Text text="{userId}"/>
+														<Text text="{ path: 'endDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'short' } }"/>
+														<Text text="{isContingentWorker}"/>
+														<Text text="{assignmentIdExternal}"/>
+														<Text text="{personIdExternal}"/>
+														<Text text="{userId}"/>
+														<Text text="{ path: 'endDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'short' } }"/>
+														<Text text="{isContingentWorker}"/>
+														<Text text="{assignmentIdExternal}"/>
+													</cells>
+												</ColumnListItem>
+											</items>
+										</Table>
+									</ScrollContainer>
+								</content>
+							</IconTabFilter>
+							<!--Biến động giảm bảo hiểm-->
+							<IconTabFilter text="Biến động giảm bảo hiểm" key="decrease">
+								<content>
+									<ScrollContainer height="35rem" vertical='true'>
+										<table:Table rows="{/EmpEmployment}" title="Biến động giảm bảo hiểm" noDataText="No data to display" id="tableDisp"
+											enableBusyIndicator="true" showNoData="true" >
+											<table:Column autoResizable="true">
+												<Label text="Mã nhân viên" textAlign="Center" wrapping="false"/>
+												<table:template>
+													<Text text="{personIdExternal}" wrapping="false"/>
+												</table:template>
+											</table:Column>
+											<table:Column>
+												<Label text="Họ và tên" textAlign="Center" width="100%"/>
+												<table:template>
+													<Text text="{personIdExternal}" wrapping="false"/>
+												</table:template>
+											</table:Column>
+											<table:Column>
+												<Label text="Số sổ BHXH" textAlign="Center" width="100%"/>
+												<table:template>
+													<Text text="{personIdExternal}" wrapping="false"/>
+												</table:template>
+											</table:Column>
+											<table:Column>
+												<Label text="Mã số BHXH" textAlign="Center" width="100%"/>
+												<table:template>
+													<Text text="{personIdExternal}" wrapping="false"/>
+												</table:template>
+											</table:Column>
+											<table:Column>
+												<Label text="Ngày sinh" textAlign="Center" width="100%"/>
+												<table:template>
+													<Text text="{personIdExternal}" wrapping="false"/>
+												</table:template>
+											</table:Column>
+											<table:Column>
+												<Label text="Nữ (x)" textAlign="Center" width="100%"/>
+												<table:template>
+													<Text text="{personIdExternal}" wrapping="false"/>
+												</table:template>
+											</table:Column>
+											<table:Column>
+												<Label text="Dân tộc" textAlign="Center" width="100%"/>
+												<table:template>
+													<Text text="{personIdExternal}" wrapping="false"/>
+												</table:template>
+											</table:Column>
+											<table:Column>
+												<Label text="Quốc tịch" textAlign="Center" width="100%"/>
+												<table:template>
+													<Text text="{personIdExternal}" wrapping="false"/>
+												</table:template>
+											</table:Column>
+											<table:Column>
+												<Label text="Số CMND/Hộ chiếu/Thẻ căn cước" textAlign="Center" width="100%"/>
+												<table:template>
+													<Text text="{personIdExternal}" wrapping="false"/>
+												</table:template>
+											</table:Column>
+											<table:Column>
+												<Label text="Số điện thoại" textAlign="Center" width="100%"/>
+												<table:template>
+													<Text text="{personIdExternal}" wrapping="false"/>
+												</table:template>
+											</table:Column>
+											<table:Column>
+												<Label text="Email" textAlign="Center" width="100%"/>
+												<table:template>
+													<Text text="{personIdExternal}" wrapping="false"/>
+												</table:template>
+											</table:Column>
+											<table:Column>
+												<Label text="Mã hộ gia đình" textAlign="Center" width="100%"/>
+												<table:template>
+													<Text text="{personIdExternal}" wrapping="false"/>
+												</table:template>
+											</table:Column>
+										
+											<table:Column headerSpan="3" colspan="3">
+												<table:multiLabels >
+													<Label text="Địa chỉ thường trú" textAlign="Center" width="100%"/>
+													<Label text="Tỉnh/TP" textAlign="Center" width="100%"/>
+												</table:multiLabels>
+												<table:template>
+													<Text text="{personIdExternal}" wrapping="false"/>
+												</table:template>
+											</table:Column>
+											<table:Column>
+												<table:multiLabels>
+													<Label text="Địa chỉ thường trú" textAlign="Center"/>
+													<Label text="Quận/Huyện" textAlign="Center" width="100%"/>
+												</table:multiLabels>
+												<table:template>
+													<Text text="{userId}"/>
+												</table:template>
+											</table:Column>
+											<table:Column>
+												<table:multiLabels>
+													<Label text="Địa chỉ thường trú" textAlign="Center"/>
+													<Label text="Xã/phường" textAlign="Center" width="100%"/>
+												</table:multiLabels>
+												<table:template>
+													<Text text="{userId}"/>
+												</table:template>
+											</table:Column>
+											
+											<table:Column headerSpan="3" colspan="3">
+												<table:multiLabels >
+													<Label text="Địa chỉ tạm trú" textAlign="Center" width="100%"/>
+													<Label text="Tỉnh/TP" textAlign="Center" width="100%"/>
+												</table:multiLabels>
+												<table:template>
+													<Text text="{personIdExternal}" wrapping="false"/>
+												</table:template>
+											</table:Column>
+											<table:Column>
+												<table:multiLabels>
+													<Label text="Địa chỉ tạm trú" textAlign="Center"/>
+													<Label text="Quận/Huyện" textAlign="Center" width="100%"/>
+												</table:multiLabels>
+												<table:template>
+													<Text text="{userId}"/>
+												</table:template>
+											</table:Column>
+											<table:Column>
+												<table:multiLabels>
+													<Label text="Địa chỉ tạm trú" textAlign="Center"/>
+													<Label text="Xã/phường" textAlign="Center" width="100%"/>
+												</table:multiLabels>
+												<table:template>
+													<Text text="{userId}"/>
+												</table:template>
+											</table:Column>
+											
+											<table:Column>
+												<Label text="Cấp bậc, chức vụ, chức danh nghề" textAlign="Center" width="100%"/>
+												<table:template>
+													<Text text="{personIdExternal}" wrapping="false"/>
+												</table:template>
+											</table:Column>
+											<table:Column>
+												<Label text="Nơi làm việc" textAlign="Center" width="100%"/>
+												<table:template>
+													<Text text="{personIdExternal}" wrapping="false"/>
+												</table:template>
+											</table:Column>
+											<table:Column>
+												<Label text="Số HDLD" textAlign="Center" width="100%"/>
+												<table:template>
+													<Text text="{personIdExternal}" wrapping="false"/>
+												</table:template>
+											</table:Column>
+											<table:Column>
+												<Label text="Ngày ký" textAlign="Center" width="100%"/>
+												<table:template>
+													<Text text="{personIdExternal}" wrapping="false"/>
+												</table:template>
+											</table:Column>
+											<table:Column>
+												<Label text="Loại hợp đồng" textAlign="Center" width="100%"/>
+												<table:template>
+													<Text text="{personIdExternal}" wrapping="false"/>
+												</table:template>
+											</table:Column>
+											<table:Column>
+												<Label text="Ngày bắt đầu" textAlign="Center" width="100%"/>
+												<table:template>
+													<Text text="{personIdExternal}" wrapping="false"/>
+												</table:template>
+											</table:Column>
+											<table:Column>
+												<Label text="Ngày kết thúc" textAlign="Center" width="100%"/>
+												<table:template>
+													<Text text="{personIdExternal}" wrapping="false"/>
+												</table:template>
+											</table:Column>
+											<table:Column>
+												<Label text="Mức lương đóng bảo hiểm" textAlign="Center" width="100%"/>
+												<table:template>
+													<Text text="{personIdExternal}" wrapping="false"/>
+												</table:template>
+											</table:Column>
+											<table:Column>
+												<Label text="Số quyết định nghỉ việc" textAlign="Center" width="100%"/>
+												<table:template>
+													<Text text="{personIdExternal}" wrapping="false"/>
+												</table:template>
+											</table:Column>
+											<table:Column>
+												<Label text="Ngày nghỉ việc" textAlign="Center" width="100%"/>
+												<table:template>
+													<Text text="{personIdExternal}" wrapping="false"/>
+												</table:template>
+											</table:Column>
+											<table:Column>
+												<Label text="Tháng báo giảm" textAlign="Center" width="100%"/>
+												<table:template>
+													<Text text="{personIdExternal}" wrapping="false"/>
+												</table:template>
+											</table:Column>
+											
+										</table:Table>
+									</ScrollContainer>
+								</content>
+							</IconTabFilter>
+							<!--Biến động lương bảo hiểm-->
+							<IconTabFilter text="Biến động lương bảo hiểm" key="wage">
+								<content>
+									<ScrollContainer height="35rem" vertical='true'>
+										<Table id="tbWage" inset="false" items="{path:'/EmpEmployment'}" enableBusyIndicator="true">
+											<headerToolbar>
+												<OverflowToolbar>
+													<Title text="Products" level="H2"/>
+													<ToolbarSpacer></ToolbarSpacer>
+													<Button icon="sap-icon://download" press="onDataExport"/>
+												</OverflowToolbar>
+											</headerToolbar>
+											<columns>
+												<Column width="12cm">
+													<Text text="Product"/>
+												</Column>
+												<Column width="12cm" demandPopin="true">
+													<Text text="Supplier"/>
+												</Column>
+												<Column width="12cm" demandPopin="true" hAlign="End">
+													<Text text="Dimensions"/>
+												</Column>
+												<Column width="12cm" demandPopin="true" hAlign="Center">
+													<Text text="Weight"/>
+												</Column>
+												<Column width="12cm" hAlign="End">
+													<Text text="Price"/>
+												</Column>
+												<Column width="12cm">
+													<Text text="Product"/>
+												</Column>
+												<Column width="12cm" demandPopin="true">
+													<Text text="Supplier"/>
+												</Column>
+												<Column width="12cm" demandPopin="true" hAlign="End">
+													<Text text="Dimensions"/>
+												</Column>
+												<Column width="12cm" demandPopin="true" hAlign="Center">
+													<Text text="Weight"/>
+												</Column>
+												<Column width="12cm" hAlign="End">
+													<Text text="Price"/>
+												</Column>
+											</columns>
+											<items>
+												<ColumnListItem vAlign="Middle" type="Active" press="handleMasterPress">
+													<cells>
+														<!--<Text text="{ProductId}"/>-->
+														<!--<Text text="{Name}"/>-->
+														<!--<Text text="{Category}"/>-->
+														<!--<Text text="{DateOfSale}"/>-->
+														<!--<Text text="{Price}"/>-->
+														<Text text="{personIdExternal}"/>
+														<Text text="{userId}"/>
+														<Text text="{ path: 'endDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'short' } }"/>
+														<Text text="{isContingentWorker}"/>
+														<Text text="{assignmentIdExternal}"/>
+														<Text text="{personIdExternal}"/>
+														<Text text="{userId}"/>
+														<Text text="{ path: 'endDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'short' } }"/>
+														<Text text="{isContingentWorker}"/>
+														<Text text="{assignmentIdExternal}"/>
+													</cells>
+												</ColumnListItem>
+											</items>
+										</Table>
+									</ScrollContainer>
+								</content>
+							</IconTabFilter>
+							<!--Danh sách đầu kì-->
+							<IconTabFilter text="Danh sách đầu kỳ" key="opening-term">
+								<content>
+									<ScrollContainer height="35rem" vertical='true'>
+										<Table id="tbOpening" inset="false" items="{path:'/EmpEmployment'}" enableBusyIndicator="true">
+											<headerToolbar>
+												<OverflowToolbar>
+													<Title text="Products" level="H2"/>
+													<ToolbarSpacer></ToolbarSpacer>
+													<Button icon="sap-icon://download" press="onDataExport"/>
+												</OverflowToolbar>
+											</headerToolbar>
+											<columns>
+												<Column width="12cm">
+													<Text text="Product"/>
+												</Column>
+												<Column width="12cm" demandPopin="true">
+													<Text text="Supplier"/>
+												</Column>
+												<Column width="12cm" demandPopin="true" hAlign="End">
+													<Text text="Dimensions"/>
+												</Column>
+												<Column width="12cm" demandPopin="true" hAlign="Center">
+													<Text text="Weight"/>
+												</Column>
+												<Column width="12cm" hAlign="End">
+													<Text text="Price"/>
+												</Column>
+												<Column width="12cm">
+													<Text text="Product"/>
+												</Column>
+												<Column width="12cm" demandPopin="true">
+													<Text text="Supplier"/>
+												</Column>
+												<Column width="12cm" demandPopin="true" hAlign="End">
+													<Text text="Dimensions"/>
+												</Column>
+												<Column width="12cm" demandPopin="true" hAlign="Center">
+													<Text text="Weight"/>
+												</Column>
+												<Column width="12cm" hAlign="End">
+													<Text text="Price"/>
+												</Column>
+											</columns>
+											<items>
+												<ColumnListItem vAlign="Middle" type="Active" press="handleMasterPress">
+													<cells>
+														<!--<Text text="{ProductId}"/>-->
+														<!--<Text text="{Name}"/>-->
+														<!--<Text text="{Category}"/>-->
+														<!--<Text text="{DateOfSale}"/>-->
+														<!--<Text text="{Price}"/>-->
+														<Text text="{personIdExternal}"/>
+														<Text text="{userId}"/>
+														<Text text="{ path: 'endDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'short' } }"/>
+														<Text text="{isContingentWorker}"/>
+														<Text text="{assignmentIdExternal}"/>
+														<Text text="{personIdExternal}"/>
+														<Text text="{userId}"/>
+														<Text text="{ path: 'endDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'short' } }"/>
+														<Text text="{isContingentWorker}"/>
+														<Text text="{assignmentIdExternal}"/>
+													</cells>
+												</ColumnListItem>
+											</items>
+										</Table>
+									</ScrollContainer>
+								</content>
+							</IconTabFilter>
+						</items>
+					</IconTabBar>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

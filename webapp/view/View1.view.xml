@@ -4,96 +4,68 @@
 	<Shell id="shell">
 		<App id="app">
 			<pages>
-				<Page id="page" title="{i18n>title}">
+				<Page id="page" title="Thiết lập trừ gia cảnh">
 					<content>
 						<l:Grid defaultSpan="L6 M6 S6" class="sapUiSmallMarginTop sapUiSmallMargin">
 							<l:content>
-								<Table id="idProductsTable" inset="false" items="{path:'/ProductCollection'}">
-									<columns>
-										<Column demandPopin="true">
-											<Text text="Name"/>
-										</Column>
-										<Column demandPopin="true">
-											<Text text="Quantity"/>
-										</Column>
-										<Column demandPopin="true">
-											<Text text="UOM"/>
-										</Column>
-										<Column demandPopin="true">
-											<Text text="Price"/>
-										</Column>
-										<Column demandPopin="true">
-											<Text text="Subtotal"/>
-										</Column>
-									</columns>
-									<items>
-										<ColumnListItem vAlign="Middle" type="Navigation" press="handleMasterPress">
-											<cells>
-												<Text text="{ProductId}"/>
-												<Text text="{Name}"/>
-												<Text text="{Category}"/>
-												<Text text="{DateOfSale}"/>
-												<Text text="{Price}"/>
-											</cells>
-										</ColumnListItem>
-									</items>
-								</Table>
-								<f:SimpleForm id="SimpleFormChange472" maxContainerCols="2" editable="true" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3"
-									emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2" adjustLabelSpan="false" class="editableForm">
-									<f:content>
-										<Label text="Product Id"/>
-										<Input id='tfProductId'>
-											<layoutData>
-												<l:GridData span="L6 M6 S6"/>
-											</layoutData>
-										</Input>
-										<Label text="Name"/>
-										<Input id='tfName'>
-											<layoutData>
-												<l:GridData span="L6 M6 S6"/>
-											</layoutData>
-										</Input>
-										<Label text="Date Of Sale"/>
-										<Input id='tfDateOfSale'>
-											<layoutData>
-												<l:GridData span="L6 M6 S6"/>
-											</layoutData>
-										</Input>
-										<Label text="Price"/>
-										<Input id='tfPrice'>
-											<layoutData>
-												<l:GridData span="L6 M6 S6"/>
-											</layoutData>
-										</Input>
-										<Label text="Category"/>
-										<Select width="100%">
+								<l:VerticalLayout>
+									<l:content>
+										<ScrollContainer height='20rem' vertical='true'>
+											<Table id="idProductsTable" inset="false" items="{path:'/EmpEmployment'}" enableBusyIndicator="true">
+												<columns>
+													<Column demandPopin="true">
+														<Text text="Ngày hiệu lực"/>
+													</Column>
+												</columns>
+												<items>
+													<ColumnListItem vAlign="Middle" type="Navigation" press="handleMasterPress">
+														<cells>
+															<!--<Text text="{ProductId}"/>-->
+															<!--<Text text="{Name}"/>-->
+															<!--<Text text="{Category}"/>-->
+															<!--<Text text="{DateOfSale}"/>-->
+															<!--<Text text="{Price}"/>-->
+															<!--<Text text="{personIdExternal}"/>-->
+															<!--<Text text="{userId}"/>-->
+															<Text text="{ path: 'endDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'short' } }"/>
+															<!--<Text text="{isContingentWorker}"/>-->
+															<!--<Text text="{assignmentIdExternal}"/>-->
+														</cells>
+													</ColumnListItem>
+												</items>
+											</Table>
+										</ScrollContainer>
+									</l:content>
+								</l:VerticalLayout>
+								<l:VerticalLayout width="90%">
+									<l:content>
+										<f:SimpleForm maxContainerCols="2" editable="true" layout="ResponsiveLayout" labelSpanL="1" labelSpanM="1" emptySpanL="5" emptySpanM="5"
+											columnsL="5" columnsM="5">
+											<f:content>
+											
+												<Label text="Ngày hiệu lực"/>
+												<DatePicker id="dateTimeField"
+													value="{ path: '/EmpEmployment/endDate', type: 'sap.ui.model.odata.type.DateTime', constraints: { displayFormat: 'Date' } }"/>
+												<!--<Input id='tfDateOfSale'></Input>-->
+												<Label text="Giá trị"/>
+												<Input id='tfValue'></Input>
+												<!--<Label text=""/>-->
+												<!--<Button text="Default" press="onPress">-->
+												<!--	<layoutData>-->
+												<!--		<l:GridData span="L2 M2 S2"/>-->
+												<!--	</layoutData>-->
+												<!--</Button>-->
+											</f:content>
+										</f:SimpleForm>
+										<FlexBox alignItems="Center" justifyContent="Center">
 											<items>
-												<c:Item text="A"/>
-												<c:Item text="B"/>
-												<c:Item text="C"/>
+												<Button type="Accept" class="sapUiMediumMarginBeginEnd" icon="sap-icon://save" press="onSave" text="Save" width="80%"/>
+												<Button type="Default" class="sapUiMediumMarginBeginEnd" icon="sap-icon://create" press="onCreate" text="Create" width="80%"/>
+												<Button type="Attention" class="sapUiMediumMarginBeginEnd" icon="sap-icon://delete" press="onDelete" text="Delete" width="80%"/>
 											</items>
-											<layoutData>
-												<l:GridData span="L6 M6 S6"/>
-											</layoutData>
-										</Select>
-										<Label text=""/>
-										<Button text="Default" press="onPress">
-											<layoutData>
-												<l:GridData span="L3 M3 S3"/>
-											</layoutData>
-										</Button>
-										<Button text="Default" press="onPress">
-												<layoutData>
-												<l:GridData span="L3 M3 S3"/>
-											</layoutData>
-										</Button>
-										<Button text="Default" press="onPress">
-												<layoutData>
-												<l:GridData span="L3 M3 S3"/>
-											</layoutData>
-										</Button>
-									</f:content>
-								</f:SimpleForm>
+										</FlexBox>
+									</l:content>
+								</l:VerticalLayout>
 							</l:content>
 						</l:Grid>
 					</content>
