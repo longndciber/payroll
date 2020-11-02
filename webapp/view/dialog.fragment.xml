@@ -1,0 +1,7 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core">
+	<BusyDialog
+		title="Loading Data"
+		text="... now loading the data from a server"/>
+</c:FragmentDefinition>
