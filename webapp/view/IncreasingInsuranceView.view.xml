@@ -1,6 +1,6 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:table="sap.ui.table" xmlns:f="sap.ui.layout.form"
-	xmlns:c="sap.ui.core" xmlns:l="sap.ui.layout" controllerName="com.ciber.sf.sfpayroll.controller.IncreasingInsuranceView"
-	xmlns:html="http://www.w3.org/1999/xhtml">
+	xmlns:u="sap.ui.unified" xmlns:c="sap.ui.core" xmlns:l="sap.ui.layout"
+	controllerName="com.ciber.sf.sfpayroll.controller.IncreasingInsuranceView" xmlns:html="http://www.w3.org/1999/xhtml">
 	<App>
 		<pages>
 			<Page title="Bảo hiểm">
@@ -8,69 +8,45 @@
 					<IconTabBar id="iconTabBar" select=".onFilterSelect">
 						<items>
 							<IconTabFilter text="Theo kỳ bảo hiểm" key="end-term">
-								<VBox>
-									<f:Form id="FormChangeColumn_oneGroup234" editable="true">
-										<f:layout>
-											<f:ColumnLayout columnsM="2" columnsL="3" columnsXL="4"/>
-										</f:layout>
-										<f:formContainers>
-											<f:FormContainer>
-												<f:FormElement label="Công ty">
-													<f:fields>
-														<Select showSecondaryValues="true" id="cbCompany" items="{path: 'CompanyList>/list'}">
-															<items>
-																<c:ListItem key="{CompanyList>id}" text="{CompanyList>name}" additionalText="{CompanyList>id}"/>
-															</items>
-														</Select>
-													</f:fields>
-												</f:FormElement>
-												<f:FormElement label=""></f:FormElement>
-												<f:formElements>
-													<f:FormElement label="Năm">
-														<f:fields>
-															<DatePicker displayFormat="yyyy" valueFormat="yyyy" id="dtpYear"/>
-														</f:fields>
-													</f:FormElement>
-													<f:FormElement label="Kỳ bảo hiểm">
-														<f:fields>
-															<Select id="cbMonth" selectedKey="{Month}">
-																<items>
-																	<c:Item text="Tháng 01" key="01"/>
-																	<c:Item text="Tháng 02" key="02"/>
-																	<c:Item text="Tháng 03" key="03"/>
-																	<c:Item text="Tháng 04" key="04"/>
-																	<c:Item text="Tháng 05" key="05"/>
-																	<c:Item text="Tháng 06" key="06"/>
-																	<c:Item text="Tháng 07" key="07"/>
-																	<c:Item text="Tháng 08" key="08"/>
-																	<c:Item text="Tháng 09" key="09"/>
-																	<c:Item text="Tháng 10" key="10"/>
-																	<c:Item text="Tháng 11" key="11"/>
-																	<c:Item text="Tháng 12" key="12"/>
-																</items>
-															</Select>
-														</f:fields>
-													</f:FormElement>
-													<f:FormElement label="Từ ngày">
-														<f:fields>
-															<Text id="lblFromDate"/>
-														</f:fields>
-													</f:FormElement>
-													<f:FormElement label="Đến ngày">
-														<f:fields>
-															<Text id="lblToDate"/>
-														</f:fields>
-													</f:FormElement>
-													<f:FormElement label="">
-														<f:fields>
-															<Button type="Default" class="sapUiMediumMarginBeginEnd" icon="sap-icon://refresh" press="onFilter" text="Xử lý" width="50%"/>
-														</f:fields>
-													</f:FormElement>
-												</f:formElements>
-											</f:FormContainer>
-										</f:formContainers>
-									</f:Form>
-								</VBox>
+								<l:VerticalLayout width="100%" class="gridWrapper">
+									<l:Grid containerQuery="true" defaultSpan="XL2 L2">
+										<VBox>
+											<Label text="Công ty: "></Label>
+											<Select showSecondaryValues="true"  id="cbCompany" items="{path: 'CompanyList>/list'}">
+												<items>
+													<c:ListItem key="{CompanyList>id}" text="{CompanyList>name}" additionalText="{CompanyList>id}"/>
+												</items>
+											</Select>
+										</VBox>
+										<VBox class="sapUiSmallMarginBegin">
+											<Label text="Kỳ bảo hiểm: "></Label>
+											<Select id="cbMonth" selectedKey="{Month}" width="100%">
+												<items>
+													<c:Item text="Tháng 01" key="01"/>
+													<c:Item text="Tháng 02" key="02"/>
+													<c:Item text="Tháng 03" key="03"/>
+													<c:Item text="Tháng 04" key="04"/>
+													<c:Item text="Tháng 05" key="05"/>
+													<c:Item text="Tháng 06" key="06"/>
+													<c:Item text="Tháng 07" key="07"/>
+													<c:Item text="Tháng 08" key="08"/>
+													<c:Item text="Tháng 09" key="09"/>
+													<c:Item text="Tháng 10" key="10"/>
+													<c:Item text="Tháng 11" key="11"/>
+													<c:Item text="Tháng 12" key="12"/>
+												</items>
+											</Select>
+										</VBox>
+										<VBox class="sapUiSmallMarginBeginEnd">
+											<Label text="Năm: "></Label>
+											<DatePicker displayFormat="yyyy" valueFormat="yyyy" id="dtpYear"/>
+										</VBox>
+										<VBox>
+											<Label text=" "></Label>
+											<Button type="Default"  icon="sap-icon://refresh" press="onFilter" text="Xử lý" width="50%"/>
+										</VBox>
+									</l:Grid>
+								</l:VerticalLayout>
 							</IconTabFilter>
 						</items>
 						<items>
@@ -165,195 +141,194 @@
 					<IconTabBar id="iconTabBar1" class="sapUiResponsiveContentPadding" select=".onFilterSelect">
 						<items>
 							<!--Danh sách đầu kì-->
-							<IconTabFilter text="Danh sách đầu kì" key="end-term">
-								<content>
-									<ScrollContainer height="32rem" vertical='true'>
-										<table:Table rows="{EmpEmployment>/list}" title="Danh sách đầu kì" noDataText="No data to display" id="tbEndTerm" enableBusyIndicator="true"
-											showNoData="false" visibleRowCount="10">
-											<table:extension>
-												<OverflowToolbar>
-													<Title id="title" text="Products"></Title>
-													<ToolbarSpacer/>
-													<Button icon="sap-icon://sorting-ranking" tooltip="Sort ascending across Categories and Name" press="sortCategoriesAndName"/>
-													<Button icon="sap-icon://sort" tooltip="Sort Categories in addition to current sorting" press="sortCategories"/>
-													<Button icon="sap-icon://decline" tooltip="Clear all sortings" press="clearAllSortings"/>
-												</OverflowToolbar>
-											</table:extension>
-											<table:columns>
-												<table:Column autoResizable="true" width="11rem">
-													<Label text="Mã nhân viên" textAlign="Center" wrapping="false"/>
-													<table:template>
-														<Text text="{EmpEmployment>userId}" wrapping="false"/>
-													</table:template>
-												</table:Column>
-												<table:Column autoResizable="true" width="11rem">
-													<Label text="Họ và tên" textAlign="Center" width="100%"/>
-													<table:template>
-														<Text text="{EmpEmployment>name}" wrapping="false"/>
-													</table:template>
-												</table:Column>
-												<table:Column autoResizable="true" width="11rem">
-													<Label text="Chức danh" textAlign="Center" width="100%"/>
-													<table:template>
-														<Text text="{EmpEmployment>socialInsId}" wrapping="false"/>
-													</table:template>
-												</table:Column>
-												<table:Column autoResizable="true" width="11rem">
-													<Label text="Phòng/Bộ phận" textAlign="Center" width="100%"/>
-													<table:template>
-														<Text text="{personIdExternal}" wrapping="false"/>
-													</table:template>
-												</table:Column>
-												<table:Column autoResizable="true" width="11rem">
-													<Label text="Khối" textAlign="Center" width="100%"/>
-													<table:template>
-														<Text text="{personIdExternal}" wrapping="false"/>
-													</table:template>
-												</table:Column>
-												<table:Column autoResizable="true" width="11rem">
-													<Label text="Line Kinh doanh" textAlign="Center" width="100%"/>
-													<table:template>
-														<Text text="{personIdExternal}" wrapping="false"/>
-													</table:template>
-												</table:Column>
-												<table:Column autoResizable="true" width="11rem">
-													<Label text="Loại hợp đồng" textAlign="Center" width="100%"/>
-													<table:template>
-														<Text text="{personIdExternal}" wrapping="false"/>
-													</table:template>
-												</table:Column>
-												<table:Column autoResizable="true" width="11rem">
-													<Label text="Email" textAlign="Center" width="100%"/>
-													<table:template>
-														<Text text="{personIdExternal}" wrapping="false"/>
-													</table:template>
-												</table:Column>
-												<table:Column autoResizable="true" width="11rem">
-													<Label text="Mã số BHXH" textAlign="Center" wrapping="true"/>
-													<table:template>
-														<Text text="{personIdExternal}" wrapping="false"/>
-													</table:template>
-												</table:Column>
-												<table:Column autoResizable="true" width="11rem">
-													<Label text="Loại biến động" textAlign="Center" width="100%"/>
-													<table:template>
-														<Text text="{personIdExternal}" wrapping="false"/>
-													</table:template>
-												</table:Column>
-												<table:Column autoResizable="true" width="11rem">
-													<Label text="Tháng biến động" textAlign="Center" width="100%"/>
-													<table:template>
-														<Text text="{personIdExternal}" wrapping="false"/>
-													</table:template>
-												</table:Column>
-												<table:Column autoResizable="true" width="11rem">
-													<Label text="BHTNLD - BNN" textAlign="Center" width="100%"/>
-													<table:template>
-														<Text text="{personIdExternal}" wrapping="false"/>
-													</table:template>
-												</table:Column>
-												<table:Column autoResizable="true" width="11rem">
-													<Label text="Lương đóng BHXH" textAlign="Center" width="100%"/>
-													<table:template>
-														<Text text="{personIdExternal}" wrapping="false"/>
-													</table:template>
-												</table:Column>
-												<table:Column autoResizable="true" width="11rem">
-													<Label text="Lương đóng BHYT" textAlign="Center" width="100%"/>
-													<table:template>
-														<Text text="{personIdExternal}" wrapping="false"/>
-													</table:template>
-												</table:Column>
-												<table:Column autoResizable="true" width="11rem">
-													<Label text="Lương đóng BHTN" textAlign="Center" width="100%"/>
-													<table:template>
-														<Text text="{personIdExternal}" wrapping="false"/>
-													</table:template>
-												</table:Column>
-												<table:Column autoResizable="true" width="11rem">
-													<Label text="Lương đóng BHTNLD" textAlign="Center" width="100%"/>
-													<table:template>
-														<Text text="{personIdExternal}" wrapping="false"/>
-													</table:template>
-												</table:Column>
-												<table:Column autoResizable="true" width="11rem">
-													<Label text="BHXH - NLD" textAlign="Center" width="100%"/>
-													<table:template>
-														<Text text="{personIdExternal}" wrapping="false"/>
-													</table:template>
-												</table:Column>
-												<table:Column autoResizable="true" width="11rem">
-													<Label text="BHYT - NLD" textAlign="Center" width="100%"/>
-													<table:template>
-														<Text text="{personIdExternal}" wrapping="false"/>
-													</table:template>
-												</table:Column>
-												<table:Column autoResizable="true" width="11rem">
-													<Label text="BHTN - NLD" textAlign="Center" width="100%"/>
-													<table:template>
-														<Text text="{personIdExternal}" wrapping="false"/>
-													</table:template>
-												</table:Column>
-												<table:Column autoResizable="true" width="11rem">
-													<Label text="BHTNLD - NLD" textAlign="Center" width="100%"/>
-													<table:template>
-														<Text text="{personIdExternal}" wrapping="false"/>
-													</table:template>
-												</table:Column>
-												<table:Column autoResizable="true" width="11rem">
-													<Label text="Bảo hiểm khác import (NV)" textAlign="Center" width="100%"/>
-													<table:template>
-														<Text text="{personIdExternal}" wrapping="false"/>
-													</table:template>
-												</table:Column>
-												<table:Column autoResizable="true" width="11rem">
-													<Label text="TỔNG BH -NLD" textAlign="Center" width="100%"/>
-													<table:template>
-														<Text text="{personIdExternal}" wrapping="false"/>
-													</table:template>
-												</table:Column>
-												<table:Column autoResizable="true" width="11rem">
-													<Label text="BHXH - CTY" textAlign="Center"/>
-													<table:template>
-														<Text text="{personIdExternal}" wrapping="false"/>
-													</table:template>
-												</table:Column>
-												<table:Column autoResizable="true" width="11rem">
-													<Label text="BHYT - CTY" textAlign="Center"/>
-													<table:template>
-														<Text text="{personIdExternal}" wrapping="false"/>
-													</table:template>
-												</table:Column>
-												<table:Column autoResizable="true" width="11rem">
-													<Label text="BHTN - CTY" textAlign="Center"/>
-													<table:template>
-														<Text text="{personIdExternal}" wrapping="false"/>
-													</table:template>
-												</table:Column>
-												<table:Column autoResizable="true" width="11rem">
-													<Label text="BHTNLD - CTY" textAlign="Center"/>
-													<table:template>
-														<Text text="{personIdExternal}" wrapping="false"/>
-													</table:template>
-												</table:Column>
-												<table:Column autoResizable="true" width="11rem">
-													<Label text="TỔNG BH -CONG TY" textAlign="Center"/>
-													<table:template>
-														<Text text="{personIdExternal}" wrapping="false"/>
-													</table:template>
-												</table:Column>
-											</table:columns>
-										</table:Table>
-									</ScrollContainer>
-								</content>
-								<!-- sap.ui.core.Control -->
-							</IconTabFilter>
+							<!--<IconTabFilter text="Danh sách đầu kì" key="open-term">-->
+							<!--	<content>-->
+							<!--		<ScrollContainer height="32rem" vertical='true'>-->
+							<!--			<table:Table rows="{EmpEmployment>/list}" title="Danh sách đầu kì" noDataText="No data to display" id="tbEndTerm" enableBusyIndicator="true"-->
+							<!--				showNoData="false" visibleRowCount="10">-->
+							<!--				<table:columns>-->
+							<!--					<table:Column autoResizable="true" width="11rem">-->
+							<!--						<Label text="Mã nhân viên" textAlign="Center" wrapping="false"/>-->
+							<!--						<table:template>-->
+							<!--							<Text text="{EmpEmployment>userId}" wrapping="false"/>-->
+							<!--						</table:template>-->
+							<!--					</table:Column>-->
+							<!--					<table:Column autoResizable="true" width="11rem">-->
+							<!--						<Label text="Họ và tên" textAlign="Center" width="100%"/>-->
+							<!--						<table:template>-->
+							<!--							<Text text="{EmpEmployment>name}" wrapping="false"/>-->
+							<!--						</table:template>-->
+							<!--					</table:Column>-->
+							<!--					<table:Column autoResizable="true" width="11rem">-->
+							<!--						<Label text="Chức danh" textAlign="Center" width="100%"/>-->
+							<!--						<table:template>-->
+							<!--							<Text text="{EmpEmployment>socialInsId}" wrapping="false"/>-->
+							<!--						</table:template>-->
+							<!--					</table:Column>-->
+							<!--					<table:Column autoResizable="true" width="11rem">-->
+							<!--						<Label text="Phòng/Bộ phận" textAlign="Center" width="100%"/>-->
+							<!--						<table:template>-->
+							<!--							<Text text="{personIdExternal}" wrapping="false"/>-->
+							<!--						</table:template>-->
+							<!--					</table:Column>-->
+							<!--					<table:Column autoResizable="true" width="11rem">-->
+							<!--						<Label text="Khối" textAlign="Center" width="100%"/>-->
+							<!--						<table:template>-->
+							<!--							<Text text="{personIdExternal}" wrapping="false"/>-->
+							<!--						</table:template>-->
+							<!--					</table:Column>-->
+							<!--					<table:Column autoResizable="true" width="11rem">-->
+							<!--						<Label text="Line Kinh doanh" textAlign="Center" width="100%"/>-->
+							<!--						<table:template>-->
+							<!--							<Text text="{personIdExternal}" wrapping="false"/>-->
+							<!--						</table:template>-->
+							<!--					</table:Column>-->
+							<!--					<table:Column autoResizable="true" width="11rem">-->
+							<!--						<Label text="Loại hợp đồng" textAlign="Center" width="100%"/>-->
+							<!--						<table:template>-->
+							<!--							<Text text="{personIdExternal}" wrapping="false"/>-->
+							<!--						</table:template>-->
+							<!--					</table:Column>-->
+							<!--					<table:Column autoResizable="true" width="11rem">-->
+							<!--						<Label text="Email" textAlign="Center" width="100%"/>-->
+							<!--						<table:template>-->
+							<!--							<Text text="{personIdExternal}" wrapping="false"/>-->
+							<!--						</table:template>-->
+							<!--					</table:Column>-->
+							<!--					<table:Column autoResizable="true" width="11rem">-->
+							<!--						<Label text="Mã số BHXH" textAlign="Center" wrapping="true"/>-->
+							<!--						<table:template>-->
+							<!--							<Text text="{personIdExternal}" wrapping="false"/>-->
+							<!--						</table:template>-->
+							<!--					</table:Column>-->
+							<!--					<table:Column autoResizable="true" width="11rem">-->
+							<!--						<Label text="Loại biến động" textAlign="Center" width="100%"/>-->
+							<!--						<table:template>-->
+							<!--							<Text text="{personIdExternal}" wrapping="false"/>-->
+							<!--						</table:template>-->
+							<!--					</table:Column>-->
+							<!--					<table:Column autoResizable="true" width="11rem">-->
+							<!--						<Label text="Tháng biến động" textAlign="Center" width="100%"/>-->
+							<!--						<table:template>-->
+							<!--							<Text text="{personIdExternal}" wrapping="false"/>-->
+							<!--						</table:template>-->
+							<!--					</table:Column>-->
+							<!--					<table:Column autoResizable="true" width="11rem">-->
+							<!--						<Label text="BHTNLD - BNN" textAlign="Center" width="100%"/>-->
+							<!--						<table:template>-->
+							<!--							<Text text="{personIdExternal}" wrapping="false"/>-->
+							<!--						</table:template>-->
+							<!--					</table:Column>-->
+							<!--					<table:Column autoResizable="true" width="11rem">-->
+							<!--						<Label text="Lương đóng BHXH" textAlign="Center" width="100%"/>-->
+							<!--						<table:template>-->
+							<!--							<Text text="{personIdExternal}" wrapping="false"/>-->
+							<!--						</table:template>-->
+							<!--					</table:Column>-->
+							<!--					<table:Column autoResizable="true" width="11rem">-->
+							<!--						<Label text="Lương đóng BHYT" textAlign="Center" width="100%"/>-->
+							<!--						<table:template>-->
+							<!--							<Text text="{personIdExternal}" wrapping="false"/>-->
+							<!--						</table:template>-->
+							<!--					</table:Column>-->
+							<!--					<table:Column autoResizable="true" width="11rem">-->
+							<!--						<Label text="Lương đóng BHTN" textAlign="Center" width="100%"/>-->
+							<!--						<table:template>-->
+							<!--							<Text text="{personIdExternal}" wrapping="false"/>-->
+							<!--						</table:template>-->
+							<!--					</table:Column>-->
+							<!--					<table:Column autoResizable="true" width="11rem">-->
+							<!--						<Label text="Lương đóng BHTNLD" textAlign="Center" width="100%"/>-->
+							<!--						<table:template>-->
+							<!--							<Text text="{personIdExternal}" wrapping="false"/>-->
+							<!--						</table:template>-->
+							<!--					</table:Column>-->
+							<!--					<table:Column autoResizable="true" width="11rem">-->
+							<!--						<Label text="BHXH - NLD" textAlign="Center" width="100%"/>-->
+							<!--						<table:template>-->
+							<!--							<Text text="{personIdExternal}" wrapping="false"/>-->
+							<!--						</table:template>-->
+							<!--					</table:Column>-->
+							<!--					<table:Column autoResizable="true" width="11rem">-->
+							<!--						<Label text="BHYT - NLD" textAlign="Center" width="100%"/>-->
+							<!--						<table:template>-->
+							<!--							<Text text="{personIdExternal}" wrapping="false"/>-->
+							<!--						</table:template>-->
+							<!--					</table:Column>-->
+							<!--					<table:Column autoResizable="true" width="11rem">-->
+							<!--						<Label text="BHTN - NLD" textAlign="Center" width="100%"/>-->
+							<!--						<table:template>-->
+							<!--							<Text text="{personIdExternal}" wrapping="false"/>-->
+							<!--						</table:template>-->
+							<!--					</table:Column>-->
+							<!--					<table:Column autoResizable="true" width="11rem">-->
+							<!--						<Label text="BHTNLD - NLD" textAlign="Center" width="100%"/>-->
+							<!--						<table:template>-->
+							<!--							<Text text="{personIdExternal}" wrapping="false"/>-->
+							<!--						</table:template>-->
+							<!--					</table:Column>-->
+							<!--					<table:Column autoResizable="true" width="11rem">-->
+							<!--						<Label text="Bảo hiểm khác import (NV)" textAlign="Center" width="100%"/>-->
+							<!--						<table:template>-->
+							<!--							<Text text="{personIdExternal}" wrapping="false"/>-->
+							<!--						</table:template>-->
+							<!--					</table:Column>-->
+							<!--					<table:Column autoResizable="true" width="11rem">-->
+							<!--						<Label text="TỔNG BH -NLD" textAlign="Center" width="100%"/>-->
+							<!--						<table:template>-->
+							<!--							<Text text="{personIdExternal}" wrapping="false"/>-->
+							<!--						</table:template>-->
+							<!--					</table:Column>-->
+							<!--					<table:Column autoResizable="true" width="11rem">-->
+							<!--						<Label text="BHXH - CTY" textAlign="Center"/>-->
+							<!--						<table:template>-->
+							<!--							<Text text="{personIdExternal}" wrapping="false"/>-->
+							<!--						</table:template>-->
+							<!--					</table:Column>-->
+							<!--					<table:Column autoResizable="true" width="11rem">-->
+							<!--						<Label text="BHYT - CTY" textAlign="Center"/>-->
+							<!--						<table:template>-->
+							<!--							<Text text="{personIdExternal}" wrapping="false"/>-->
+							<!--						</table:template>-->
+							<!--					</table:Column>-->
+							<!--					<table:Column autoResizable="true" width="11rem">-->
+							<!--						<Label text="BHTN - CTY" textAlign="Center"/>-->
+							<!--						<table:template>-->
+							<!--							<Text text="{personIdExternal}" wrapping="false"/>-->
+							<!--						</table:template>-->
+							<!--					</table:Column>-->
+							<!--					<table:Column autoResizable="true" width="11rem">-->
+							<!--						<Label text="BHTNLD - CTY" textAlign="Center"/>-->
+							<!--						<table:template>-->
+							<!--							<Text text="{personIdExternal}" wrapping="false"/>-->
+							<!--						</table:template>-->
+							<!--					</table:Column>-->
+							<!--					<table:Column autoResizable="true" width="11rem">-->
+							<!--						<Label text="TỔNG BH -CONG TY" textAlign="Center"/>-->
+							<!--						<table:template>-->
+							<!--							<Text text="{personIdExternal}" wrapping="false"/>-->
+							<!--						</table:template>-->
+							<!--					</table:Column>-->
+							<!--				</table:columns>-->
+							<!--			</table:Table>-->
+							<!--		</ScrollContainer>-->
+							<!--	</content>-->
+							<!-- sap.ui.core.Control -->
+							<!--</IconTabFilter>-->
 							<!--Biến động tăng bảo hiểm-->
 							<IconTabFilter text="Biến động tăng bảo hiểm" key="increase">
 								<content>
 									<!--<ScrollContainer height="32rem" vertical='true'>-->
-									<table:Table rows="{IncreasingInsurance>/list}" title="Biến động tăng bảo hiểm" noDataText="No data to display" enableBusyIndicator="true"
-										showNoData="true" visibleRowCount="10">
+									<table:Table rows="{IncreasingInsurance>/list}" enableBusyIndicator="true" showNoData="true" visibleRowCount="10" fixedColumnCount="1"
+										columnHeaderVisible="true" enableColumnReordering="false" enableColumnFreeze="false">
+										<table:extension>
+											<OverflowToolbar>
+												<ToolbarSpacer/>
+												<Button icon="sap-icon://sorting-ranking" tooltip="Sort ascending across Categories and Name" press="sortCategoriesAndName"/>
+												<Button icon="sap-icon://sort" tooltip="Sort Categories in addition to current sorting" press="sortCategories"/>
+												<Button icon="sap-icon://decline" tooltip="Clear all sortings" press="clearAllSortings"/>
+											</OverflowToolbar>
+										</table:extension>
 										<table:columns>
 											<table:Column autoResizable="true" width="11rem">
 												<Label text="Mã nhân viên" textAlign="Center" wrapping="false"/>
@@ -512,15 +487,16 @@
 												</table:template>
 											</table:Column>
 											<table:Column autoResizable="true" width="8rem">
-												<Label text="Ngày bắt đầu" textAlign="Center" width="100%"/>
+												<Label text="Ngày bắt đầu HĐ HĐ" textAlign="Center" width="100%"/>
 												<table:template>
 													<Text text="{ path: 'IncreasingInsurance>startDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'short' } }" wrapping="false"/>
 												</table:template>
 											</table:Column>
 											<table:Column autoResizable="true" width="8rem">
-												<Label text="Ngày kết thúc" textAlign="Center" width="100%"/>
+												<Label text="Ngày kết thúc HĐ" textAlign="Center" width="100%"/>
 												<table:template>
-													<Text text="{ path: 'IncreasingInsurance>endDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'short' } }" wrapping="false"/>
+													<Text text="{ path: 'IncreasingInsurance>contractEndDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'short' } }"
+														wrapping="false"/>
 												</table:template>
 											</table:Column>
 											<table:Column autoResizable="true" width="11rem">
@@ -532,7 +508,7 @@
 											<table:Column autoResizable="true" width="11rem">
 												<Label text="Thời điểm đóng" textAlign="Center"/>
 												<table:template>
-													<Text text="{personIdExternal}" wrapping="false"/>
+													<Text text="{IncreasingInsurance>timeToPay}" wrapping="false"/>
 												</table:template>
 											</table:Column>
 										</table:columns>
@@ -544,8 +520,17 @@
 							<IconTabFilter text="Biến động giảm bảo hiểm" key="decrease">
 								<content>
 									<!--<ScrollContainer height="32rem" vertical='true'>-->
-									<table:Table rows="{DecreasingInsurance>/list}" title="Biến động giảm bảo hiểm" noDataText="No data to display" id="tableDisp"
-										enableBusyIndicator="true" showNoData="true" visibleRowCount="10">
+									<table:Table rows="{DecreasingInsurance>/list}" noDataText="No data to display" id="tableDisp" fixedColumnCount="1"
+										columnHeaderVisible="true" enableColumnReordering="false" enableColumnFreeze="false" enableBusyIndicator="true" showNoData="true"
+										visibleRowCount="10">
+										<table:extension>
+											<OverflowToolbar>
+												<ToolbarSpacer/>
+												<Button icon="sap-icon://sorting-ranking" tooltip="Sort ascending across Categories and Name" press="sortCategoriesAndName"/>
+												<Button icon="sap-icon://sort" tooltip="Sort Categories in addition to current sorting" press="sortCategories"/>
+												<Button icon="sap-icon://decline" tooltip="Clear all sortings" press="clearAllSortings"/>
+											</OverflowToolbar>
+										</table:extension>
 										<table:columns>
 											<table:Column autoResizable="true" width="11rem">
 												<Label text="Mã nhân viên" textAlign="Center" wrapping="false"/>
@@ -704,21 +689,22 @@
 												</table:template>
 											</table:Column>
 											<table:Column autoResizable="true" width="8rem">
-												<Label text="Ngày bắt đầu" textAlign="Center" width="100%"/>
+												<Label text="Ngày bắt đầu HĐ HĐ" textAlign="Center" width="100%"/>
 												<table:template>
 													<Text text="{ path: 'DecreasingInsurance>startDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'short' } }" wrapping="false"/>
 												</table:template>
 											</table:Column>
 											<table:Column autoResizable="true" width="8rem">
-												<Label text="Ngày kết thúc" textAlign="Center" width="100%"/>
+												<Label text="Ngày kết thúc HĐ" textAlign="Center" width="100%"/>
 												<table:template>
-													<Text text="{ path: 'DecreasingInsurance>endDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'short' } }" wrapping="false"/>
+													<Text text="{ path: 'DecreasingInsurance>contractEndDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'short' } }"
+														wrapping="false"/>
 												</table:template>
 											</table:Column>
 											<table:Column autoResizable="true" width="11rem">
 												<Label text="Mức lương đóng bảo hiểm" textAlign="Center" width="100%"/>
 												<table:template>
-													<Text text="{DecreasingInsurance>paycompvalue}" wrapping="false"/>
+													<Text text="{DecreasingInsurance>depaycompvalue}" wrapping="false"/>
 												</table:template>
 											</table:Column>
 											<table:Column autoResizable="true" width="11rem">
@@ -736,7 +722,7 @@
 											<table:Column autoResizable="true" width="11rem">
 												<Label text="Tháng báo giảm" textAlign="Center"/>
 												<table:template>
-													<Text text="{personIdExternal}" wrapping="false"/>
+													<Text text="{DecreasingInsurance>timeToPay}" wrapping="false"/>
 												</table:template>
 											</table:Column>
 										</table:columns>
@@ -748,8 +734,16 @@
 							<IconTabFilter text="Biến động lương bảo hiểm" key="wage">
 								<content>
 									<!--<ScrollContainer height="32rem" vertical='true'>-->
-									<table:Table rows="{InsuranceWage>/list}" title="Biến động lương bảo hiểm" noDataText="No data to display" enableBusyIndicator="true"
-										showNoData="true" visibleRowCount="10">
+									<table:Table rows="{InsuranceWage>/list}" noDataText="No data to display" enableBusyIndicator="true" fixedColumnCount="1"
+										columnHeaderVisible="true" enableColumnReordering="false" enableColumnFreeze="false" showNoData="true" visibleRowCount="10">
+										<table:extension>
+											<OverflowToolbar>
+												<ToolbarSpacer/>
+												<Button icon="sap-icon://sorting-ranking" tooltip="Sort ascending across Categories and Name" press="sortCategoriesAndName"/>
+												<Button icon="sap-icon://sort" tooltip="Sort Categories in addition to current sorting" press="sortCategories"/>
+												<Button icon="sap-icon://decline" tooltip="Clear all sortings" press="clearAllSortings"/>
+											</OverflowToolbar>
+										</table:extension>
 										<table:columns>
 											<table:Column autoResizable="true" width="11rem">
 												<Label text="Mã nhân viên" textAlign="Center" wrapping="false"/>
@@ -814,7 +808,7 @@
 											<table:Column autoResizable="true" width="11rem">
 												<Label text="Mã hộ gia đình" textAlign="Center" width="100%"/>
 												<table:template>
-													<Text text="{InsuranceWage>}" wrapping="false"/>
+													<Text text="" wrapping="false"/>
 												</table:template>
 											</table:Column>
 											<table:Column headerSpan="3" colspan="3" autoResizable="true" width="11rem">
@@ -902,15 +896,15 @@
 												</table:template>
 											</table:Column>
 											<table:Column autoResizable="true" width="8rem">
-												<Label text="Ngày bắt đầu" textAlign="Center" width="100%"/>
+												<Label text="Ngày bắt đầu HĐ" textAlign="Center" width="100%"/>
 												<table:template>
 													<Text text="{ path: 'InsuranceWage>startDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'short' } }" wrapping="false"/>
 												</table:template>
 											</table:Column>
 											<table:Column autoResizable="true" width="8rem">
-												<Label text="Ngày kết thúc" textAlign="Center" width="100%"/>
+												<Label text="Ngày kết thúc HĐ HĐ" textAlign="Center" width="100%"/>
 												<table:template>
-													<Text text="{ path: 'InsuranceWage>endDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'short' } }" wrapping="false"/>
+													<Text text="{ path: 'InsuranceWage>contractEndDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'short' } }" wrapping="false"/>
 												</table:template>
 											</table:Column>
 											<table:Column autoResizable="true" width="11rem">
@@ -922,7 +916,13 @@
 											<table:Column autoResizable="true" width="11rem">
 												<Label text="Mức lương đóng bảo hiểm mới" textAlign="Center" wrapping="true"/>
 												<table:template>
-													<Text text="{InsuranceWage>paycompvalue}" wrapping="false"/>
+													<Text text="{InsuranceWage>newpaycompvalue}" wrapping="false"/>
+												</table:template>
+											</table:Column>
+											<table:Column autoResizable="true" width="11rem">
+												<Label text="Ngày điều chỉnh lương" textAlign="Center" wrapping="true"/>
+												<table:template>
+													<Text text="{ path: 'InsuranceWage>modifiedDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'short' } }" wrapping="false"/>
 												</table:template>
 											</table:Column>
 										</table:columns>
@@ -931,174 +931,240 @@
 								</content>
 							</IconTabFilter>
 							<!--Danh sách cuối kì-->
-							<IconTabFilter text="Danh sách cuối kỳ" key="opening-term">
+							<IconTabFilter text="Danh sách cuối kỳ" key="end-term" class="ExportPage">
 								<content>
-									<!--<ScrollContainer height="32rem" vertical='true'>-->
-									<table:Table rows="{/EmpEmployment}" title="Danh sách cuối kì" noDataText="No data to display" id="tbOpeningTerm" enableBusyIndicator="true"
-										showNoData="true" visibleRowCount="10">
+									<table:Table rows="{EndTerm>/list}" noDataText="No data to display" id="tbEndTerm" enableBusyIndicator="true" fixedColumnCount="1"
+										columnHeaderVisible="true" enableColumnReordering="false" enableColumnFreeze="false" showNoData="true" visibleRowCount="11">
+										<table:extension>
+											<OverflowToolbar>
+												<ToolbarSpacer/>
+												<u:FileUploader enabled="false" id="FileUploaderId" sameFilenameAllowed="true" iconOnly="false" buttonOnly="false"
+													fileType="XLSX,xlsx,XLS,xls,CSV,csv" icon="sap-icon://upload" iconFirst="true" style="Emphasized" change="onUpload"
+													placeholder="Choose a file for Upload..."/>
+												<Button icon="sap-icon://sorting-ranking" tooltip="Sort ascending across Categories and Name" press="sortCategoriesAndName"/>
+												<Button icon="sap-icon://sort" tooltip="Sort Categories in addition to current sorting" press="sortCategories"/>
+												<Button icon="sap-icon://decline" tooltip="Clear all sortings" press="clearAllSortings"/>
+											</OverflowToolbar>
+										</table:extension>
 										<table:columns>
 											<table:Column autoResizable="true" width="11rem">
 												<Label text="Mã nhân viên" textAlign="Center" wrapping="false"/>
 												<table:template>
-													<Text text="{personIdExternal}" wrapping="false"/>
+													<Text text="{EndTerm>userId}" wrapping="false"/>
 												</table:template>
 											</table:Column>
 											<table:Column autoResizable="true" width="11rem">
 												<Label text="Họ và tên" textAlign="Center" width="100%"/>
 												<table:template>
-													<Text text="{personIdExternal}" wrapping="false"/>
+													<Text text="{EndTerm>name}" wrapping="false"/>
 												</table:template>
 											</table:Column>
 											<table:Column autoResizable="true" width="11rem">
 												<Label text="Chức danh" textAlign="Center" width="100%"/>
 												<table:template>
-													<Text text="{personIdExternal}" wrapping="false"/>
+													<Text text="{EndTerm>jobTitle}" wrapping="false"/>
 												</table:template>
 											</table:Column>
 											<table:Column autoResizable="true" width="11rem">
 												<Label text="Phòng/Bộ phận" textAlign="Center" width="100%"/>
 												<table:template>
-													<Text text="{personIdExternal}" wrapping="false"/>
+													<Text text="{EndTerm>department}" wrapping="false"/>
 												</table:template>
 											</table:Column>
 											<table:Column autoResizable="true" width="11rem">
 												<Label text="Khối" textAlign="Center" width="100%"/>
 												<table:template>
-													<Text text="{personIdExternal}" wrapping="false"/>
+													<Text text="{EndTerm>division}" wrapping="false"/>
 												</table:template>
 											</table:Column>
 											<table:Column autoResizable="true" width="11rem">
 												<Label text="Line Kinh doanh" textAlign="Center" width="100%"/>
 												<table:template>
-													<Text text="{personIdExternal}" wrapping="false"/>
+													<Text text="{EndTerm>businessUnit}" wrapping="false"/>
 												</table:template>
 											</table:Column>
 											<table:Column autoResizable="true" width="11rem">
 												<Label text="Loại hợp đồng" textAlign="Center" width="100%"/>
 												<table:template>
-													<Text text="{personIdExternal}" wrapping="false"/>
+													<Text text="{EndTerm>contractType}" wrapping="false"/>
 												</table:template>
 											</table:Column>
 											<table:Column autoResizable="true" width="11rem">
 												<Label text="Email" textAlign="Center" width="100%"/>
 												<table:template>
-													<Text text="{personIdExternal}" wrapping="false"/>
+													<Text text="{EndTerm>email}" wrapping="false"/>
 												</table:template>
 											</table:Column>
 											<table:Column autoResizable="true" width="11rem">
 												<Label text="Mã số BHXH" textAlign="Center" wrapping="true"/>
 												<table:template>
-													<Text text="{personIdExternal}" wrapping="false"/>
+													<Text text="{EndTerm>socialInsId}" wrapping="false"/>
 												</table:template>
 											</table:Column>
 											<table:Column autoResizable="true" width="11rem">
 												<Label text="Loại biến động" textAlign="Center" width="100%"/>
 												<table:template>
-													<Text text="{personIdExternal}" wrapping="false"/>
+													<Text text="{}" wrapping="false"/>
 												</table:template>
 											</table:Column>
 											<table:Column autoResizable="true" width="11rem">
 												<Label text="Tháng biến động" textAlign="Center" width="100%"/>
 												<table:template>
-													<Text text="{personIdExternal}" wrapping="false"/>
+													<Text text="{}" wrapping="false"/>
 												</table:template>
 											</table:Column>
-											<table:Column autoResizable="true" width="11rem">
-												<Label text="BHTNLD - BNN" textAlign="Center" width="100%"/>
-												<table:template>
-													<Text text="{personIdExternal}" wrapping="false"/>
-												</table:template>
-											</table:Column>
-											<table:Column autoResizable="true" width="11rem">
-												<Label text="Lương đóng BHXH" textAlign="Center" width="100%"/>
-												<table:template>
-													<Text text="{personIdExternal}" wrapping="false"/>
-												</table:template>
-											</table:Column>
-											<table:Column autoResizable="true" width="11rem">
-												<Label text="Lương đóng BHYT" textAlign="Center" width="100%"/>
-												<table:template>
-													<Text text="{personIdExternal}" wrapping="false"/>
-												</table:template>
-											</table:Column>
-											<table:Column autoResizable="true" width="11rem">
-												<Label text="Lương đóng BHTN" textAlign="Center" width="100%"/>
-												<table:template>
-													<Text text="{personIdExternal}" wrapping="false"/>
-												</table:template>
-											</table:Column>
-											<table:Column autoResizable="true" width="11rem">
-												<Label text="Lương đóng BHTNLD" textAlign="Center" width="100%"/>
-												<table:template>
-													<Text text="{personIdExternal}" wrapping="false"/>
-												</table:template>
-											</table:Column>
-											<table:Column autoResizable="true" width="11rem">
-												<Label text="BHXH - NLD" textAlign="Center" width="100%"/>
-												<table:template>
-													<Text text="{personIdExternal}" wrapping="false"/>
-												</table:template>
-											</table:Column>
-											<table:Column autoResizable="true" width="11rem">
-												<Label text="BHYT - NLD" textAlign="Center" width="100%"/>
-												<table:template>
-													<Text text="{personIdExternal}" wrapping="false"/>
-												</table:template>
-											</table:Column>
-											<table:Column autoResizable="true" width="11rem">
-												<Label text="BHTN - NLD" textAlign="Center" width="100%"/>
-												<table:template>
-													<Text text="{personIdExternal}" wrapping="false"/>
-												</table:template>
-											</table:Column>
-											<table:Column autoResizable="true" width="11rem">
-												<Label text="BHTNLD - NLD" textAlign="Center" width="100%"/>
-												<table:template>
-													<Text text="{personIdExternal}" wrapping="false"/>
-												</table:template>
-											</table:Column>
-											<table:Column autoResizable="true" width="11rem">
-												<Label text="Bảo hiểm khác import (NV)" textAlign="Center" width="100%"/>
-												<table:template>
-													<Text text="{personIdExternal}" wrapping="false"/>
-												</table:template>
-											</table:Column>
-											<table:Column autoResizable="true" width="11rem">
-												<Label text="TỔNG BH -NLD" textAlign="Center" width="100%"/>
-												<table:template>
-													<Text text="{personIdExternal}" wrapping="false"/>
-												</table:template>
-											</table:Column>
-											<table:Column autoResizable="true" width="11rem">
-												<Label text="BHXH - CTY" textAlign="Center"/>
-												<table:template>
-													<Text text="{personIdExternal}" wrapping="false"/>
-												</table:template>
-											</table:Column>
-											<table:Column autoResizable="true" width="11rem">
-												<Label text="BHYT - CTY" textAlign="Center"/>
-												<table:template>
-													<Text text="{personIdExternal}" wrapping="false"/>
-												</table:template>
-											</table:Column>
-											<table:Column autoResizable="true" width="11rem">
-												<Label text="BHTN - CTY" textAlign="Center"/>
-												<table:template>
-													<Text text="{personIdExternal}" wrapping="false"/>
-												</table:template>
-											</table:Column>
-											<table:Column autoResizable="true" width="11rem">
-												<Label text="BHTNLD - CTY" textAlign="Center"/>
-												<table:template>
-													<Text text="{personIdExternal}" wrapping="false"/>
-												</table:template>
-											</table:Column>
-											<table:Column autoResizable="true" width="11rem">
-												<Label text="TỔNG BH -CONG TY" textAlign="Center"/>
-												<table:template>
-													<Text text="{personIdExternal}" wrapping="false"/>
-												</table:template>
-											</table:Column>
+											<!--<table:Column autoResizable="true" width="11rem">-->
+											<!--	<Label text="Lương đóng BHXH" textAlign="Center" width="100%"/>-->
+											<!--	<table:template>-->
+											<!--		<Text-->
+											<!--			text="{ path:'EndTerm>socialInsWage', type: 'sap.ui.model.type.Integer', formatOptions: { minIntegerDigits: 0, maxIntegerDigits: 99, minFractionDigits: 0, maxFractionDigits: 3, groupingEnabled: true, groupingSeparator: ','}, constraints: { maximum: 1000 }}"-->
+											<!--			wrapping="false"/>-->
+											<!--	</table:template>-->
+											<!--</table:Column>-->
+											<!--<table:Column autoResizable="true" width="11rem">-->
+											<!--	<Label text="Lương đóng BHYT" textAlign="Center" width="100%"/>-->
+											<!--	<table:template>-->
+											<!--		<Text-->
+											<!--			text="{ path:'EndTerm>healthInsWage', type: 'sap.ui.model.type.Integer', formatOptions: { minIntegerDigits: 0, maxIntegerDigits: 99, minFractionDigits: 0, maxFractionDigits: 3, groupingEnabled: true, groupingSeparator: ','}, constraints: { maximum: 1000 }}"-->
+											<!--			wrapping="false"/>-->
+											<!--	</table:template>-->
+											<!--</table:Column>-->
+											<!--<table:Column autoResizable="true" width="11rem">-->
+											<!--	<Label text="Lương đóng BHTN" textAlign="Center" width="100%"/>-->
+											<!--	<table:template>-->
+											<!--		<Text-->
+											<!--			text="{ path:'EndTerm>unemploymentInsWage', type: 'sap.ui.model.type.Integer', formatOptions: { minIntegerDigits: 0, maxIntegerDigits: 99, minFractionDigits: 0, maxFractionDigits: 3, groupingEnabled: true, groupingSeparator: ','}, constraints: { maximum: 1000 }}"-->
+											<!--			wrapping="false"/>-->
+											<!--	</table:template>-->
+											<!--</table:Column>-->
+											<!--<table:Column autoResizable="true" width="11rem">-->
+											<!--	<Label text="Lương đóng BHTNLD" textAlign="Center" width="100%"/>-->
+											<!--	<table:template>-->
+											<!--		<Text-->
+											<!--			text="{ path:'EndTerm>accidentInsWage', type: 'sap.ui.model.type.Integer', formatOptions: { minIntegerDigits: 0, maxIntegerDigits: 99, minFractionDigits: 0, maxFractionDigits: 3, groupingEnabled: true, groupingSeparator: ','}, constraints: { maximum: 1000 }}"-->
+											<!--			wrapping="false"/>-->
+											<!--	</table:template>-->
+											<!--</table:Column>-->
+											<!--<table:Column autoResizable="true" width="11rem">-->
+											<!--	<Label text="BHXH - NLD" textAlign="Center" width="100%"/>-->
+											<!--	<table:template>-->
+											<!--		<Text-->
+											<!--			text="{ path:'EndTerm>socialInsEmp', type: 'sap.ui.model.type.Integer', formatOptions: { minIntegerDigits: 0, maxIntegerDigits: 99, minFractionDigits: 0, maxFractionDigits: 3, groupingEnabled: true, groupingSeparator: ','}, constraints: { maximum: 1000 }}"-->
+											<!--			wrapping="false"/>-->
+											<!--	</table:template>-->
+											<!--</table:Column>-->
+											<!--<table:Column autoResizable="true" width="11rem">-->
+											<!--	<Label text="BHXH - NLD - Fomular" textAlign="Center" width="100%"/>-->
+											<!--	<table:template>-->
+											<!--		<Text-->
+											<!--			text="{ path:'EndTerm>BHXH-NLD', type: 'sap.ui.model.type.Integer', formatOptions: { minIntegerDigits: 0, maxIntegerDigits: 99, minFractionDigits: 0, maxFractionDigits: 3, groupingEnabled: true, groupingSeparator: ','}, constraints: { maximum: 1000 }}"-->
+											<!--			wrapping="false"/>-->
+											<!--	</table:template>-->
+											<!--</table:Column>-->
+											<!--<table:Column autoResizable="true" width="11rem">-->
+											<!--	<Label text="BHYT - NLD" textAlign="Center" width="100%"/>-->
+											<!--	<table:template>-->
+											<!--		<Text-->
+											<!--			text="{ path:'EndTerm>healthInsEmp', type: 'sap.ui.model.type.Integer', formatOptions: { minIntegerDigits: 0, maxIntegerDigits: 99, minFractionDigits: 0, maxFractionDigits: 3, groupingEnabled: true, groupingSeparator: ','}, constraints: { maximum: 1000 }}"-->
+											<!--			wrapping="false"/>-->
+											<!--	</table:template>-->
+											<!--</table:Column>-->
+											<!--<table:Column autoResizable="true" width="11rem">-->
+											<!--	<Label text="BHYT - NLD - Fomular" textAlign="Center" width="100%"/>-->
+											<!--	<table:template>-->
+											<!--		<Text-->
+											<!--			text="{ path:'EndTerm>BHYT-NLD', type: 'sap.ui.model.type.Integer', formatOptions: { minIntegerDigits: 0, maxIntegerDigits: 99, minFractionDigits: 0, maxFractionDigits: 3, groupingEnabled: true, groupingSeparator: ','}, constraints: { maximum: 1000 }}"-->
+											<!--			wrapping="false"/>-->
+											<!--	</table:template>-->
+											<!--</table:Column>-->
+											<!--<table:Column autoResizable="true" width="11rem">-->
+											<!--	<Label text="TongBH-NLD - Fomular" textAlign="Center" width="100%"/>-->
+											<!--	<table:template>-->
+											<!--		<Text-->
+											<!--			text="{ path:'EndTerm>TONGBH-NLD', type: 'sap.ui.model.type.Integer', formatOptions: { minIntegerDigits: 0, maxIntegerDigits: 99, minFractionDigits: 0, maxFractionDigits: 3, groupingEnabled: true, groupingSeparator: ','}, constraints: { maximum: 1000 }}"-->
+											<!--			wrapping="false"/>-->
+											<!--	</table:template>-->
+											<!--</table:Column>-->
+											<!--<table:Column autoResizable="true" width="11rem">-->
+											<!--	<Label text="BHTN - NLD" textAlign="Center" width="100%"/>-->
+											<!--	<table:template>-->
+											<!--		<Text-->
+											<!--			text="{ path:'EndTerm>unemploymentInsEmp', type: 'sap.ui.model.type.Integer', formatOptions: { minIntegerDigits: 0, maxIntegerDigits: 99, minFractionDigits: 0, maxFractionDigits: 3, groupingEnabled: true, groupingSeparator: ','}, constraints: { maximum: 1000 }}"-->
+											<!--			wrapping="false"/>-->
+											<!--	</table:template>-->
+											<!--</table:Column>-->
+											<!--<table:Column autoResizable="true" width="11rem">-->
+											<!--	<Label text="BHTN-NLD - Fomular" textAlign="Center" width="100%"/>-->
+											<!--	<table:template>-->
+											<!--		<Text-->
+											<!--			text="{ path:'EndTerm>BHTN-NLD', type: 'sap.ui.model.type.Integer', formatOptions: { minIntegerDigits: 0, maxIntegerDigits: 99, minFractionDigits: 0, maxFractionDigits: 3, groupingEnabled: true, groupingSeparator: ','}, constraints: { maximum: 1000 }}"-->
+											<!--			wrapping="false"/>-->
+											<!--	</table:template>-->
+											<!--</table:Column>-->
+											<!--<table:Column autoResizable="true" width="11rem">-->
+											<!--	<Label text="Bảo hiểm khác import (NV)" textAlign="Center" width="100%"/>-->
+											<!--	<table:template>-->
+											<!--		<Text-->
+											<!--			text="{ path:'EndTerm>insurranceOtherEmp', type: 'sap.ui.model.type.Integer', formatOptions: { minIntegerDigits: 0, maxIntegerDigits: 99, minFractionDigits: 0, maxFractionDigits: 3, groupingEnabled: true, groupingSeparator: ','}, constraints: { maximum: 1000 }}"-->
+											<!--			wrapping="false"/>-->
+											<!--	</table:template>-->
+											<!--</table:Column>-->
+											<!--<table:Column autoResizable="true" width="11rem">-->
+											<!--	<Label text="TỔNG BH -NLD" textAlign="Center" width="100%"/>-->
+											<!--	<table:template>-->
+											<!--		<Text-->
+											<!--			text="{ path:'EndTerm>totalEmp', type: 'sap.ui.model.type.Integer', formatOptions: { minIntegerDigits: 0, maxIntegerDigits: 99, minFractionDigits: 0, maxFractionDigits: 3, groupingEnabled: true, groupingSeparator: ','}, constraints: { maximum: 1000 }}"-->
+											<!--			wrapping="false"/>-->
+											<!--	</table:template>-->
+											<!--</table:Column>-->
+											<!--<table:Column autoResizable="true" width="11rem">-->
+											<!--	<Label text="BHXH - CTY" textAlign="Center"/>-->
+											<!--	<table:template>-->
+											<!--		<Text-->
+											<!--			text="{ path:'EndTerm>socialInsCom', type: 'sap.ui.model.type.Integer', formatOptions: { minIntegerDigits: 0, maxIntegerDigits: 99, minFractionDigits: 0, maxFractionDigits: 3, groupingEnabled: true, groupingSeparator: ','}, constraints: { maximum: 1000 }}"-->
+											<!--			wrapping="false"/>-->
+											<!--	</table:template>-->
+											<!--</table:Column>-->
+											<!--<table:Column autoResizable="true" width="11rem">-->
+											<!--	<Label text="BHYT - CTY" textAlign="Center"/>-->
+											<!--	<table:template>-->
+											<!--		<Text-->
+											<!--			text="{ path:'EndTerm>healthInsCom', type: 'sap.ui.model.type.Integer', formatOptions: { minIntegerDigits: 0, maxIntegerDigits: 99, minFractionDigits: 0, maxFractionDigits: 3, groupingEnabled: true, groupingSeparator: ','}, constraints: { maximum: 1000 }}"-->
+											<!--			wrapping="false"/>-->
+											<!--	</table:template>-->
+											<!--</table:Column>-->
+											<!--<table:Column autoResizable="true" width="11rem">-->
+											<!--	<Label text="BHTN - CTY" textAlign="Center"/>-->
+											<!--	<table:template>-->
+											<!--		<Text-->
+											<!--			text="{ path:'EndTerm>unemploymentInsCom', type: 'sap.ui.model.type.Integer', formatOptions: { minIntegerDigits: 0, maxIntegerDigits: 99, minFractionDigits: 0, maxFractionDigits: 3, groupingEnabled: true, groupingSeparator: ','}, constraints: { maximum: 1000 }}"-->
+											<!--			wrapping="false"/>-->
+											<!--	</table:template>-->
+											<!--</table:Column>-->
+											<!--<table:Column autoResizable="true" width="11rem">-->
+											<!--	<Label text="BHTNLD - CTY" textAlign="Center"/>-->
+											<!--	<table:template>-->
+											<!--		<Text-->
+											<!--			text="{ path:'EndTerm>accidentInsCom', type: 'sap.ui.model.type.Integer', formatOptions: { minIntegerDigits: 0, maxIntegerDigits: 99, minFractionDigits: 0, maxFractionDigits: 3, groupingEnabled: true, groupingSeparator: ','}, constraints: { maximum: 1000 }}"-->
+											<!--			wrapping="false"/>-->
+											<!--	</table:template>-->
+											<!--</table:Column>-->
+											<!--<table:Column autoResizable="true" width="11rem">-->
+											<!--	<Label text="Bảo hiểm khác import (Cty)" textAlign="Center"/>-->
+											<!--	<table:template>-->
+											<!--		<Text-->
+											<!--			text="{ path:'EndTerm>insurranceOtherCom', type: 'sap.ui.model.type.Integer', formatOptions: { minIntegerDigits: 0, maxIntegerDigits: 99, minFractionDigits: 0, maxFractionDigits: 3, groupingEnabled: true, groupingSeparator: ','}, constraints: { maximum: 1000 }}"-->
+											<!--			wrapping="false"/>-->
+											<!--	</table:template>-->
+											<!--</table:Column>-->
+											<!--<table:Column autoResizable="true" width="11rem">-->
+											<!--	<Label text="TỔNG BH -CONG TY" textAlign="Center"/>-->
+											<!--	<table:template>-->
+											<!--		<Text-->
+											<!--			text="{ path:'EndTerm>totalCom', type: 'sap.ui.model.type.Integer', formatOptions: { minIntegerDigits: 0, maxIntegerDigits: 99, minFractionDigits: 0, maxFractionDigits: 3, groupingEnabled: true, groupingSeparator: ','}, constraints: { maximum: 1000 }}"-->
+											<!--			wrapping="false"/>-->
+											<!--	</table:template>-->
+											<!--</table:Column>-->
 										</table:columns>
 									</table:Table>
 									<!--</ScrollContainer>-->
@@ -1106,8 +1172,13 @@
 							</IconTabFilter>
 						</items>
 					</IconTabBar>
-					<VBox alignItems="Center" class="sapUiMediumMarginTopBottom">
-						<Button type="Default" class="sapUiMediumMarginBeginEnd" icon="sap-icon://table-chart" press="onExport" text="Xuất Excel" width="150px"/>
+					<VBox alignItems="Center" width="100%">
+						<HBox alignItems="Center" class="sapUiMediumMarginTopBottom">
+							<Button type="Default" id="btnLockOrUnlock" class="sapUiMediumMarginBeginEnd" icon="sap-icon://key" press="onExportPress"
+								text="Khóa" width="150px"/>
+							<Button type="Default" id="btnLock" icon="sap-icon://private" press="onLock" text="Khóa vĩnh viễn" width="150px"/>
+							<Button type="Default" class="sapUiMediumMarginBeginEnd" icon="sap-icon://table-chart" press="onExportToExcel" text="Xuất Excel" width="150px"/>
+						</HBox>
 					</VBox>
 				</content>
 			</Page>
